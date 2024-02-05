@@ -5,12 +5,14 @@ const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const cors = require("cors");
 const userroute = require("./routes/UserRoutes")
+const postroute = require("./routes/Postroutes")
 const Port = 8080;
 dotenv.config()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use("/api/user",userroute)
+app.use("/api/post",postroute)
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {

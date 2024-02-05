@@ -16,6 +16,12 @@ const Navbar = () => {
           >
             About
           </Link>
+          <Link
+            to="/Addblog"
+            className="text-white hover:text-gray-300 transition duration-300"
+          >
+            Add Blog
+          </Link>
         </div>
       </div>
     </nav>
