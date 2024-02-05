@@ -1,36 +1,36 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-    const history = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
-    async function submit(e) {
-      e.preventDefault();
-    
-      try {
-        await axios
-          .post("http://localhost:8000/", {
-            email,
-            password,
-          })
-          .then((res) => {
-            if (res.data === "exist") {
-              history("/home", { state: { id: email } });
-            } else if (res.data === "notexist") {
-              alert("User have not sign up");
-            }
-          })
-          .catch((e) => {
-            alert("wrong details");
-            console.log(e);
-          });
-      } catch (e) {
-        console.log(e);
-      }
+  const history = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function submit(e) {
+    e.preventDefault();
+
+    try {
+      await axios
+        .post("http://localhost:8000/", {
+          email,
+          password,
+        })
+        .then((res) => {
+          if (res.data === "exist") {
+            history("/home", { state: { id: email } });
+          } else if (res.data === "notexist") {
+            alert("User have not sign up");
+          }
+        })
+        .catch((e) => {
+          alert("wrong details");
+          console.log(e);
+        });
+    } catch (e) {
+      console.log(e);
     }
+  }
   return (
     <>
       <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md">
@@ -79,7 +79,10 @@ const Login = () => {
           </div>
         </form>
         <h2>
-          Dont have a account? <Link to="/signup">Signup</Link>{" "}
+          Dont have a account?{" "}
+          <Link className="text-sky-400" to="/signup">
+            Signup
+          </Link>{" "}
         </h2>
       </div>
     </>
