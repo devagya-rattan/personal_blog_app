@@ -1,13 +1,29 @@
 const myblogs = require("../Models/Postmodel");
 const express = require("express");
 const router = express.Router();
-router.post("/create", (req, res) => {
-  myblogs
-    .create(req.body)
-    .then((myblogs) => res.json({ msg: "Post added successfully" }))
-    .catch((err) => res.status(400).json({ error: "Unable to add this Post" }));
+router.post("/", async (req, res) => {
+  const { title, content, featuredImage } = req.body;
+
+  const data = {
+    title: title,
+    content: content,
+    featuredImage: featuredImage,
+  };
+
+  try {
+    const check = await myblogs.findOne({ title:title });
+
+    if (check) {
+      res.json("exist");
+    } else {
+      res.json("notexist");
+      await myblogs.insertMany([data]);
+    }
+  } catch (e) {
+    res.json("fail");
+  }
 });
-router.get("/", (req, res) => {
+router.get("/getblog", (req, res) => {
   myblogs
     .find()
     .then((books) => res.json(books))
@@ -17,7 +33,7 @@ router.get("/:id", (req, res) => {
   myblogs
     .findById(req.params.id)
     .then((book) => res.json(book))
-    .catch((err) => res.status(404).json({ nobookfound: "No Post found" }));
+    .catch((err) => res.status(404).json({ nopostsfound: "No Post found" }));
 });
 router.put("/update/:id", (req, res) => {
   myblogs

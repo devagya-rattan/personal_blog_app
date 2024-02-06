@@ -22,6 +22,12 @@ const Navbar = () => {
           >
             Add Blog
           </Link>
+          <Link
+            to="/bloglist"
+            className="text-white hover:text-gray-300 transition duration-300"
+          >
+            Blogs
+          </Link>
         </div>
       </div>
     </nav>
